@@ -1,11 +1,10 @@
 package com.example.mypagination.paginglibs
 
-import androidx.paging.PagedList
 import com.example.mypagination.Listing
-import com.example.mypagination.db.Person
+import com.example.mypagination.db.InboxMsg
 
 interface DbPersonRepo {
 
-    fun getPersons(pageSize: Int): Listing<Person>
+    fun getPersons(pageSize: Int): Listing<InboxMsg>
 
 }

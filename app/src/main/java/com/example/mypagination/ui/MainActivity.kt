@@ -12,8 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val PAGE_SIZE = 40
-        const val GOOGLE = "Google"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

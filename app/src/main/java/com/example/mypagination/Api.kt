@@ -1,31 +1,31 @@
 package com.example.mypagination
 
 import android.util.Log
-import com.example.mypagination.db.Person
-import com.example.mypagination.db.UsersSearchResponse
+import com.example.mypagination.db.ApiResponseModel
+import com.example.mypagination.db.InboxMsg
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
-    @GET("search/users?sort=followers")
-    fun searchUsers(
-        @Query("q") query: String,
-        @Query("page") page: Int,
-        @Query("per_page") perPage: Int
-    ): Call<UsersSearchResponse>
+    @FormUrlEncoded
+    @POST("message/collaborationmsglist")
+    fun getMessages(
+        @Field("securityToken") token: String, @Field("projectId") pId: Int,
+        @Field("spaceId") sId: String, @Field("istickerId") stickerId: Int,
+        @Field("timestamp") timestamp: String,
+        @Field("drawingId") drawingId: Int,
+        @Field("isReverse") isReverse: Int
+    ): Call<ApiResponseModel<List<InboxMsg>>>
 
-    data class RedditChildrenResponse(val data: Person)
 
     companion object {
-        private const val BASE_URL = "https://api.github.com/"
+        private const val BASE_URL = "https://api.archchat.com/API/web/index.php/api/v1/"
         fun create(): Api = create(HttpUrl.parse(BASE_URL)!!)
         fun create(httpUrl: HttpUrl): Api {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
